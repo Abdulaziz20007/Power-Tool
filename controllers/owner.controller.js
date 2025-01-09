@@ -1,5 +1,6 @@
 const { errorHandler } = require("../helpers/error_handler");
 const Owner = require("../models/Owner");
+const Shop = require("../models/Shop");
 
 const createOwner = async (req, res) => {
   try {
@@ -15,7 +16,7 @@ const createOwner = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const owners = await Owner.findAll();
+    const owners = await Owner.findAll({ include: Shop });
     res.status(200).send(owners);
   } catch (err) {
     errorHandler(err, res);
