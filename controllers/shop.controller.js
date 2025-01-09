@@ -22,7 +22,10 @@ const createShop = async (req, res) => {
 
 const getAll = async (req, res) => {
   try {
-    const shops = await Shop.findAll({ include: Owner });
+    const shops = await Shop.findAll({
+      include: [{ model: Owner, attributes: ["name"], required: true }],
+      attributes: ["name"],
+    });
     res.status(200).send(shops);
   } catch (err) {
     errorHandler(err, res);
